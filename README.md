@@ -3,7 +3,10 @@
 The scripts here maintain a synced directory where contents from RSS feeds are
 downloaded, and offer an interface to browse them through dmenu. You even get notifications!
 
-Please read the scripts before using.
+`xmlstarlet` is required for the `xml` command to work. Other commands in the
+scripts are self explanatory.
+
+Read the scripts before using.
 
 ## Example
 Here is an example `providers.txt`:
@@ -56,6 +59,55 @@ Browsing on dmenu (sorted by latest first) by running `browse-rss.sh`:
 
 ![Dmenu listing my RSS items](https://git.lewoof.xyz/me/rss/branch/master/tree/assets/dmenu.png)
 
+The script does not open the content file automatically. That was my idea
+initially, but blindly running a command like `xdg-open` on content downloaded
+from the internet is not a particularly smart thing to do.
+
+To deal with this, the update script creates `details.md` for every new post,
+where basic information and the description of the item is stored. In the same
+directory, the content is downloaded with `wget`. The user is left to choose
+what he wants to do with the file.
+
 When opened from dmenu:
 
 ![Opened details.md in vim, working directory set correctly by the script](https://git.lewoof.xyz/me/rss/branch/master/tree/assets/open.png)
+
+---
+
+## Addresses, Links, and Contact
+
+See [https://www.lewoof.xyz#pgp](https://www.lewoof.xyz#pgp) for my PGP key.
+
+- Email: [contact@lewoof.xyz](mailto:contact@lewoof.xyz)
+- Matrix: [@woof:matrix.lewoof.xyz](https://matrix.to/#/@woof:matrix.lewoof.xyz)
+- XMPP: lewoof@anonlounge.xyz
+- Site: [www.lewoof.xyz](https://www.lewoof.xyz)
+- Solana: `JDkK2kpBmPm6YyYnLYNHpw8FhKyZ9AQ2CQTqj6BQxFKY`
+- Bitcoin (native segwit): `c1qh5m8v9xyd8l4yc7d3qfs5a83rqk3eukcjlw6sh`
+- BuyMeACoffee: [acutewoof](https://www.buymeacoffee.com/acutewoof)
+
+---
+
+## License
+
+MIT License
+
+Copyright (c) 2026 Vithushan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
