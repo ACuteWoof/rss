@@ -14,7 +14,7 @@ while true; do
 		cd "$provider_dir"
 		wget "$url" -O "unprocessed-feed.xml"
 		echo $(tr '\n' ' ' < unprocessed-feed.xml) > feed.xml
-		xml sel -T -t -m "//item" -v "link" -o "|" -v "guid" -o "|" -v "pubDate" -o "|" -v "title" -o "|" -v "description" -n feed.xml > items.txt
+		xml sel -T -t -m "//item" -v "link" -o "|" -v "guid" -o "|" -v "pubDate" -o "|" -v "title" -o "|" -v "description" -n feed.xml > items.txt || xml sel -T -t -m "//item" -v "link" -o "|" -v "guid" -o "|" -v "pubDate" -o "|" -v "title" -o "|No description" -n feed.xml > items.txt
 		sed -i 's/\t/ /g' items.txt
 		while read -r url guid pubDate title description; do
 			thedate=$(date -d "$pubDate" +%s)

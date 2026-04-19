@@ -8,7 +8,20 @@ scripts are self explanatory.
 
 Read the scripts before using.
 
+## Expected feed format
+
+These scripts in their current state only work with RSS. Atom feeds are called
+RSS in many sites (including YouTube, Github, Gitlab) but the standards are
+different and Atom is not supported.
+
+It is also necessary for feed items to have:
+- `link`
+- `guid`
+- `pubDate`
+- `title`
+
 ## Example
+
 Here is an example `providers.txt`:
 ```
 0001|https://lewoof.xyz/posts/feed.xml|Vithushan's Posts
