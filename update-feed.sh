@@ -1,6 +1,9 @@
 PROV="/home/acutewoof/basement/rss/providers.txt"
 INDEX="/home/acutewoof/basement/rss/index.txt"
 STORE="/home/acutewoof/basement/rss"
+HTMLTOMD="pandoc -t markdown"
+YTDL_BROWSER="chromium"
+YTDL_COOKIES="~/.local/share/qutebrowser/webengine"
 IFS="|"
 DELAY=300
 
@@ -23,7 +26,14 @@ while true; do
 				echo "This is a summary.\nClosing vim will put you in the directory containing the downloaded content.\n\n---\nurl: $url\nguid: $guid\ndate: $pubDate\ndate (local): $displaydate\ntitle: $title\n---\n\n$description\n" > details.md
 				echo "[$thedate] [$name] $title [$displaydate] $description | $(pwd)" >> $INDEX
 				notify-send "New post on $name" "$title\n$displaydate\n\n$description"
-				wget "$url"
+				if [ "${url#*https://youtube.com}" != "$url" ]; then
+					yt-dlp "$url" --cookies-from-browser $YTDL_BROWSER:$YTDL_COOKIES
+				fi
+				wget -p -k -H -E -nd -e robots=off "$url"
+				for htmlfile in *.html; do
+					echo "---\n$htmlfile\n---\n\n$(eval $HTMLTOMD $htmlfile)" >> details.md
+					[ -e "$htmlfile" ] || continue
+				done
 				cd ..
 			fi
 		done < items.txt
