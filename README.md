@@ -64,8 +64,9 @@ initially, but blindly running a command like `xdg-open` on content downloaded
 from the internet is not a particularly smart thing to do.
 
 To deal with this, the update script creates `details.md` for every new post,
-where basic information and the description of the item is stored. In the same
-directory, the content is downloaded with `wget`. The user is left to choose
+where basic information, the description of the item, and markdown renderings
+of any downloaded html files, are stored. In the same directory, the content is
+downloaded with `wget` (`yt-dlp` for YouTube links). The user is left to choose
 what he wants to do with the file.
 
 When opened from dmenu:
