@@ -32,9 +32,13 @@ while true; do
 				indexline="[$thedate] [$name] $title [$displaydate] $description $DMENU_DELIM $(pwd)" 
 				grep -qxF $indexline $INDEX || echo "$indexline" >> $INDEX
 				notify-send "New post on $name" "$title\n$displaydate\n\n$description"
+
+				# to download youtube links as videos instead of as a website
+				# use more if statements like this to handle downloading from other feeds
 				if [ "${url#*https://youtube.com}" != "$url" ]; then
 					yt-dlp "$url" --cookies-from-browser $YTDL_BROWSER:$YTDL_COOKIES
 				fi
+
 				wget -p -k -H -E -nd --reject js -e robots=off "$url"
 				for htmlfile in *.html; do
 					[ -e "$htmlfile" ] || continue
