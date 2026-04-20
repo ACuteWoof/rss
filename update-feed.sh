@@ -3,7 +3,7 @@
 PROV="/home/acutewoof/basement/rss/providers.txt"
 INDEX="/home/acutewoof/basement/rss/index.txt"
 STORE="/home/acutewoof/basement/rss"
-HTMLTOMD="html2text"
+HTMLTOMD="html2tet"
 YTDL_BROWSER="chromium"
 YTDL_COOKIES="~/.local/share/qutebrowser/webengine"
 IFS="|"
@@ -29,8 +29,8 @@ while true; do
 				echo "$description" > rss-description.html
 				mddesc=$(eval $HTMLTOMD "rss-description.html")
 				echo "This is a summary and contains the markdown of any HTML files.\nClosing vim will put you in the directory containing the downloaded content.\n\n---\nurl: $url\nguid: $guid\ndate: $pubDate\ndate (local): $displaydate\ntitle: $title\n---\n\n$mddesc\n" > details.md
-				indexline="[$thedate] [$name] $title [$displaydate] $mddesc | $(pwd)" 
-				grep -qxF $indexline $INDEX || echo $indexline >> $INDEX
+				indexline="[$thedate] [$name] $title [$displaydate] $description | $(pwd)" 
+				grep -qxF $indexline $INDEX || echo "$indexline" >> $INDEX
 				notify-send "New post on $name" "$title\n$displaydate\n\n$description"
 				if [ "${url#*https://youtube.com}" != "$url" ]; then
 					yt-dlp "$url" --cookies-from-browser $YTDL_BROWSER:$YTDL_COOKIES
