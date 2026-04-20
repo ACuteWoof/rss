@@ -29,7 +29,7 @@ while true; do
 				echo "$description" > rss-description
 				mddesc=$(eval $HTMLTOMD "rss-description")
 				shortmddesc=$(echo "$mddesc" | tr '\n' ' ')
-				echo "This is a summary and contains the markdown of any HTML files.\n\n---\n\nurl: $url\nguid: $guid\ndate: $pubDate\ndate (local): $displaydate\ntitle: $title\n\n---\n\n$mddesc\n" > details.md
+				echo "This is a summary and contains the markdown of any HTML files.\n\n---\n\nurl: $url\n\nguid: $guid\n\ndate: $pubDate\n\ndate (local): $displaydate\n\ntitle: $title\n\n---\n\n$mddesc\n" > details.md
 				indexline="[$thedate] [$name] $title [$displaydate] $shortmddesc $DMENU_DELIM $(pwd)" 
 				grep -qxF $indexline $INDEX || echo "$indexline" >> $INDEX
 				notify-send "New post on $name" "$title\n$displaydate\n\n$mddesc"
