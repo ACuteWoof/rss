@@ -1,11 +1,13 @@
 #!/bin/sh
 
 PROV="/home/acutewoof/basement/rss/providers.txt"
+MDPREFIX="/home/acutewoof/basement/rss/mdprefix.md"
 INDEX="/home/acutewoof/basement/rss/index.txt"
 STORE="/home/acutewoof/basement/rss"
-HTMLTOMD="html2text"
+HTMLTOMD="pandoc -t markdown"
 YTDL_BROWSER="chromium"
 YTDL_COOKIES="~/.local/share/qutebrowser/webengine"
+PDFENGINE="lualatex"
 IFS="|"
 DMENU_DELIM="|"
 DELAY=300
@@ -29,7 +31,8 @@ while true; do
 				echo "$description" > rss-description
 				mddesc=$(eval $HTMLTOMD "rss-description")
 				shortmddesc=$(echo "$mddesc" | tr '\n' ' ')
-				echo "This is a summary and contains the markdown of any HTML files.\n\n---\n\nurl: $url\n\nguid: $guid\n\ndate: $pubDate\n\ndate (local): $displaydate\n\ntitle: $title\n\n---\n\n$mddesc\n" > details.md
+				cat "$MDPREFIX" > details.md
+				echo "This is a summary and contains the markdown of any HTML files.\n\n---\n\nurl: $url\n\nguid: $guid\n\ndate: $pubDate\n\ndate (local): $displaydate\n\ntitle: $title\n\n---\n\n$mddesc\n" >> details.md
 				indexline="[$thedate] [$name] $title [$displaydate] $shortmddesc $DMENU_DELIM $(pwd)" 
 				grep -qxF $indexline $INDEX || echo "$indexline" >> $INDEX
 				notify-send "New post on $name" "$title\n$displaydate\n\n$mddesc"
@@ -46,7 +49,7 @@ while true; do
 					[ -e "$htmlfile" ] || continue
 					echo "---\n$htmlfile\n---\n\n$(eval $HTMLTOMD $htmlfile)" >> details.md
 				done
-				pandoc --embed-resources details.md -s -o details.pdf
+				pandoc --embed-resources details.md -s -o details.pdf --pdf-engine=$PDFENGINE
 				cd ..
 			fi
 		done < items.txt
