@@ -76,11 +76,16 @@ The script does not open the content file automatically. That was my idea
 initially, but blindly running a command like `xdg-open` on content downloaded
 from the internet is not a particularly smart thing to do.
 
-To deal with this, the update script creates `details.md` for every new post,
-where basic information, the description of the item, and markdown renderings
-of any downloaded html files, are stored. In the same directory, the content is
-downloaded with `wget` (`yt-dlp` for YouTube links). The user is left to choose
-what he wants to do with the file.
+To deal with this, the update script creates `details.md` (with html2text) and
+`details.pdf` (using pandoc) for every new post, where basic information, the
+description of the item, and markdown renderings of any downloaded html files,
+are stored. In the same directory, the content is downloaded with `wget`
+(`yt-dlp` for YouTube links). The user is left to choose what he wants to do
+with the file.
+
+Dmenu will open either `details.md` or `details.pdf` depending on the line in
+`browse-rss.sh`, and when the viewer is closed, a terminal is opened in the
+item's directory.
 
 When opened from dmenu:
 
