@@ -37,9 +37,10 @@ while true; do
 				# use more if statements like this to handle downloading from other feeds
 				if [ "${url#*https://youtube.com}" != "$url" ]; then
 					yt-dlp "$url" --cookies-from-browser $YTDL_BROWSER:$YTDL_COOKIES
+				# elif your_condition; then your_download
+				else
+					wget -p -k -H -E -nd --reject js -e robots=off "$url"
 				fi
-
-				wget -p -k -H -E -nd --reject js -e robots=off "$url"
 				for htmlfile in *.html; do
 					[ -e "$htmlfile" ] || continue
 					echo "---\n$htmlfile\n---\n\n$(eval $HTMLTOMD $htmlfile)" >> details.md
