@@ -49,7 +49,7 @@ while true; do
 					[ -e "$htmlfile" ] || continue
 					echo "---\n$htmlfile\n---\n\n$(eval "$HTMLTOMD" "$htmlfile")" >> details.md
 				done
-				pandoc --embed-resources details.md -s -o details.pdf --pdf-engine="$PDFENGINE"
+				pandoc --embed-resources details.md -V "geometry:margin=1in" -s -o details.pdf --pdf-engine="$PDFENGINE"
 				cd ..
 			fi
 		done < items.txt
