@@ -34,22 +34,22 @@ while true; do
 				cat "$MDPREFIX" > details.md
 				echo "This is a summary and contains the markdown of any HTML files.\n\n---\n\nurl: $url\n\nguid: $guid\n\ndate: $pubDate\n\ndate (local): $displaydate\n\ntitle: $title\n\n---\n\n$mddesc\n" >> details.md
 				indexline="[$thedate] [$name] $title [$displaydate] $shortmddesc $DMENU_DELIM $(pwd)" 
-				grep -qxF $indexline $INDEX || echo "$indexline" >> $INDEX
+				grep -qxF "$indexline" "$INDEX" || echo "$indexline" >> "$INDEX"
 				notify-send "New post on $name" "$title\n$displaydate\n\n$mddesc"
 
 				# to download youtube links as videos instead of as a website
 				# use more if statements like this to handle downloading from other feeds
 				if [ "${url#*https://youtube.com}" != "$url" ]; then
-					yt-dlp "$url" --cookies-from-browser $YTDL_BROWSER:$YTDL_COOKIES
+					yt-dlp "$url" --cookies-from-browser "$YTDL_BROWSER:$YTDL_COOKIES"
 				# elif your_condition; then your_download
 				else
 					wget -p -k -H -E -nd --reject js -e robots=off "$url"
 				fi
 				for htmlfile in *.html; do
 					[ -e "$htmlfile" ] || continue
-					echo "---\n$htmlfile\n---\n\n$(eval $HTMLTOMD $htmlfile)" >> details.md
+					echo "---\n$htmlfile\n---\n\n$(eval "$HTMLTOMD" "$htmlfile")" >> details.md
 				done
-				pandoc --embed-resources details.md -s -o details.pdf --pdf-engine=$PDFENGINE
+				pandoc --embed-resources details.md -s -o details.pdf --pdf-engine="$PDFENGINE"
 				cd ..
 			fi
 		done < items.txt
