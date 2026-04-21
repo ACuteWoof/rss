@@ -93,6 +93,12 @@ When opened from dmenu:
 
 ---
 
+## Contributing
+
+To contribute: make your changes in a local branch, generate a patch with `git
+format-patch`, write a sensible description of your changes, and email it to
+`patches@lewoof.xyz`, including the name of this respoistory in the subject.
+
 ## Addresses, Links, and Contact
 
 See [https://www.lewoof.xyz#pgp](https://www.lewoof.xyz#pgp) for my PGP key.
@@ -104,8 +110,6 @@ See [https://www.lewoof.xyz#pgp](https://www.lewoof.xyz#pgp) for my PGP key.
 - Solana: `JDkK2kpBmPm6YyYnLYNHpw8FhKyZ9AQ2CQTqj6BQxFKY`
 - Bitcoin (native segwit): `c1qh5m8v9xyd8l4yc7d3qfs5a83rqk3eukcjlw6sh`
 - BuyMeACoffee: [acutewoof](https://www.buymeacoffee.com/acutewoof)
-
----
 
 ## License
 
